@@ -25,6 +25,7 @@
 
 <!--            分类标题-->
             <TextView
+                android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -49,9 +50,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            app:fab_colorNormal="@color/white"
-            app:fab_colorPressed="@color/blue"
+
+            app:fab_addButtonColorNormal="@color/white"
+            app:fab_addButtonColorPressed="@null"
+            app:fab_addButtonPlusIconColor="@color/black"
+            app:fab_labelStyle="@style/menu_labels_style"
             app:fab_icon="@drawable/pic_add"
+
             android:layout_marginBottom="16dp"
             android:layout_marginRight="16dp">
 <!--        点击创建按钮-新备忘录-->
@@ -62,7 +67,7 @@
             app:fab_colorNormal="@color/white"
             app:fab_title="@string/action_note"
             app:fab_size="mini"
-            android:src="@drawable/pic_addnote"
+            app:fab_icon="@drawable/pic_addnote"
             app:fab_colorPressed="@color/blue"/>
 <!--        快速创建备忘录-->
             <com.getbase.floatingactionbutton.FloatingActionButton
@@ -72,7 +77,7 @@
             app:fab_colorNormal="@color/white"
             app:fab_title="@string/action_quick"
             app:fab_size="mini"
-            android:src="@drawable/pic_addquick"
+            app:fab_icon="@drawable/pic_addquick"
             app:fab_colorPressed="@color/blue"/>
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
