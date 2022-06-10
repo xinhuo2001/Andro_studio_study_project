@@ -97,7 +97,7 @@
             />
     </RelativeLayout>
 
-<!--    侧滑菜单 android:layout_gtavity = "start" 放在左边-->
+<!--    侧滑菜单 android:layout_gravity = "start" 放在左边-->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation"
         android:layout_width="280dp"

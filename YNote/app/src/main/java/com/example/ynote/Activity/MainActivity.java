@@ -255,6 +255,21 @@ public class MainActivity extends AppCompatActivity {
 
         //适配器
         recyclerViewAdapter = new RecyclerViewAdapter(this, curNoteList);
+        recyclerViewAdapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int pos) {
+                Log.d("yzf", "我点击了position:" + pos);
+                //获取其title 和 content
+                String title = curNoteList.get(pos).getTitle();
+                String content = curNoteList.get(pos).getContent();
+                Log.d("yzf", "title:" + title);
+                Log.d("yzf", "content:" + content);
+                DBManager dbManager = new DBManager(MainActivity.this);
+                dbManager.deleteDataByString(title, content);
+                getNotesListData();
+                setRecyclerView();
+            }
+        });
         recyclerView.setAdapter(recyclerViewAdapter);
     }
     //关闭右下角的创建菜单
@@ -284,6 +299,10 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.d("yzf", "取消保存回调数据");
         }
+    }
+    //删除一个note
+    private void deleteNoteSetting() {
+
     }
 
     /**

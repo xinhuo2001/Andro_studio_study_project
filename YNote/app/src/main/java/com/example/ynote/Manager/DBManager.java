@@ -39,6 +39,28 @@ public class DBManager {
         }
     }
 
+    //给定标题 内容 删除数据
+    public void deleteDataByString(String title, String content) {
+        try {
+            //准备删除数据
+            DBHelper dbHelper = DBHelper.getInstance(mContext);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            //写删除语句
+            String deleteSQL;
+            deleteSQL = String.format("delete from %s where title = '%s' and content = '%s';",
+                    dbHelper.getNotesTableName(),
+                    title,
+                    content);
+            Log.d("yzf", "SQL:" + deleteSQL);
+            db.execSQL(deleteSQL);
+            dbHelper.close();
+        } catch (Exception e) {
+            Log.d("yzf", "删除失败");
+            e.printStackTrace();
+        }
+
+    }
+
     //根据Note类制作数据集
     public ContentValues getContentValues(Note note) {
         ContentValues values = new ContentValues();

@@ -2,8 +2,10 @@ package com.example.ynote.Adapter;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     Context mContext;
     List<Note> noteList;
+    private OnItemClickListener   onItemClickListener;
+
+    //回调接口
+    public interface OnItemClickListener{
+        void onItemClick(View view, int pos);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+        this.onItemClickListener = mOnItemClickListener;
+    }
 
     //构造函数 传入数据
     public RecyclerViewAdapter(Context mContext, List<Note> noteList) {
@@ -33,11 +45,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
+    public void onBindViewHolder(@NonNull InnerHolder holder, final int position) {
         holder.item_index.setText(Integer.toString(position + 1));
         holder.item_title.setText(noteList.get(position).getTitle());
         holder.item_content.setText(noteList.get(position).getContent());
         holder.item_time.setText(noteList.get(position).getDate().getDateString());
+        if(onItemClickListener != null) {
+            holder.btn_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = holder.getLayoutPosition();
+                    onItemClickListener.onItemClick(view, pos);
+                }
+            });
+        }
+
     }
 
     @Override
@@ -51,6 +73,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView item_title;
         TextView item_content;
         TextView item_time;
+        Button btn_delete;
 
         //对item组件实例化
         public InnerHolder(@NonNull View itemView) {
@@ -59,6 +82,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             item_title = itemView.findViewById(R.id.item_title);
             item_content = itemView.findViewById(R.id.item_content);
             item_time = itemView.findViewById(R.id.item_time);
+            btn_delete = itemView.findViewById(R.id.btn_delete);
         }
 
     }

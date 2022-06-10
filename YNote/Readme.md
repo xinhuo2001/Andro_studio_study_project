@@ -1,4 +1,4 @@
-#文件结构
+# 文件结构
 - java
     - Activity
         - MainActivity 主界面
@@ -9,6 +9,9 @@
     - Util
         - AppUtil 判断用户登录次数
 - res
+
+# 学习
+实现左滑删除:https://www.cnblogs.com/wellcherish/p/14701082.html
 
 # 施工记录
 ### 侧边栏属性
