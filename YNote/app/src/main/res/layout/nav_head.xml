@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:padding="10dp"
+    android:background="@drawable/background"
+    >
+
+<!--    头像-->
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/useImg_nav"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="20dp"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/pic_head"/>
+<!-- 名字-->
+    <TextView
+        android:id="@+id/useName_nav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:textSize="16sp"
+        android:textColor="@color/orange" />
+<!--  编辑头像和名字按钮-->
+    <ImageView
+        android:id="@+id/useEdit_nav"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/pic_edit"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        app:tint="@color/white" />
+</RelativeLayout>
