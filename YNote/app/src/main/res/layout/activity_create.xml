@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditText
+        android:id="@+id/edit_title"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:hint="@string/input_title"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="50dp"/>
+    <EditText
+        android:id="@+id/edit_content"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_below="@+id/edit_title"
+        android:hint="@string/input_content"
+        android:textColor="@color/black"
+        android:textSize="40dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/edit_content"
+        android:layout_margin="30dp"
+        >
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:text="@string/btn_save"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            />
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="30dp"
+            android:text="@string/btn_cancel"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+</RelativeLayout>

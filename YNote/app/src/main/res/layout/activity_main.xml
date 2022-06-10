@@ -51,13 +51,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-
             app:fab_addButtonColorNormal="@color/white"
             app:fab_addButtonColorPressed="@null"
             app:fab_addButtonPlusIconColor="@color/black"
             app:fab_labelStyle="@style/menu_labels_style"
             app:fab_icon="@drawable/pic_add"
-
             android:layout_marginBottom="16dp"
             android:layout_marginRight="16dp">
 <!--        点击创建按钮-新备忘录-->
@@ -92,22 +90,11 @@
         </LinearLayout>
 
 <!--        列表载体-->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-
-
-<!--            <ListView-->
-<!--                android:id="@+id/listView"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:divider="@color/red"-->
-<!--                android:dividerHeight="3dp"-->
-<!--                android:background="@null"/>-->
-
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
     </RelativeLayout>
 
 <!--    侧滑菜单 android:layout_gtavity = "start" 放在左边-->

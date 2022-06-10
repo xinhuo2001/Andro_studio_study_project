@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/zhifeiyu/Documents/0code/Android_Studio/00A_GitHub/Andro_studio_study_project/YNote/app/src/main/res/layout/activity_create.xml" value="0.2" />
         <entry key="..\:/Users/zhifeiyu/Documents/0code/Android_Studio/00A_GitHub/Andro_studio_study_project/YNote/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/zhifeiyu/Documents/0code/Android_Studio/00A_GitHub/Andro_studio_study_project/YNote/app/src/main/res/layout/item_recycler.xml" value="0.25" />
         <entry key="..\:/Users/zhifeiyu/Documents/0code/Android_Studio/00A_GitHub/Andro_studio_study_project/YNote/app/src/main/res/menu/memu_search.xml" value="0.264" />
@@ -15,5 +16,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.2" />
+      </ProjectState>
+    </option>
   </component>
 </project>

@@ -11,15 +11,22 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ynote.Adapter.RecyclerViewAdapter;
+import com.example.ynote.Info.CodeInfo;
 import com.example.ynote.Manager.DBManager;
 import com.example.ynote.Manager.PersonInfoManager;
 import com.example.ynote.Model.Note;
@@ -41,11 +48,33 @@ public class MainActivity extends AppCompatActivity {
     private String currentFolderName ="Notes";
     //当前列表数据
     private List<Note> curNoteList = new ArrayList<>();
+    //转换界面接口
+    ActivityResultLauncher<Intent> intentActivityResultLauncher;
+    //适配器
+    RecyclerViewAdapter recyclerViewAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        intentActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                Log.d("yzf", "获取到回调数据");
+                Intent data = result.getData();
+                int resultCode = result.getResultCode();
+                Log.d("yzf", "回调code:" + resultCode);
+
+                switch (resultCode){
+                    case CodeInfo.CREATE_CODE:
+                        updateDatabase(data);
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        });
         init();
     }
 
@@ -74,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "展开侧边栏", Toast.LENGTH_SHORT).show();
+                //打开侧边栏
+                mDrawer.openDrawer(GravityCompat.START);
             }
         });
 
@@ -104,6 +135,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CreateActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("SEND_CODE", CodeInfo.MAIN_CODE);
+                intent.putExtras(bundle);
+                intentActivityResultLauncher.launch(intent);
                 Toast.makeText(MainActivity.this, "创建新条目", Toast.LENGTH_SHORT).show();
             }
         });
@@ -218,7 +254,56 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         //适配器
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this, curNoteList);
+        recyclerViewAdapter = new RecyclerViewAdapter(this, curNoteList);
         recyclerView.setAdapter(recyclerViewAdapter);
+    }
+    //关闭右下角的创建菜单
+    private void hide_fabMenu(){
+        //关闭fab菜单
+        FloatingActionsMenu menu = (FloatingActionsMenu)findViewById(R.id.action_menu);
+        if(menu!=null) menu.collapse();
+    }
+    //向数据库写入数据并更新界面
+    private void updateDatabase(Intent intent) {
+        Boolean is_save = intent.getBooleanExtra("is_save", false);
+        Log.d("yzf", "is_save:" + is_save);
+        //true才保存 不存在(null)或直接退出(false)的都不处理
+        if(is_save == true) {
+            Log.d("yzf", "请求保存回调数据");
+            //保存数据
+            String title = intent.getStringExtra("title");
+            String content = intent.getStringExtra("content");
+
+            Log.d("yzf", "update_title:" + title);
+            Log.d("yzf", "update_content:" + content);
+            DBManager dbManager = new DBManager(MainActivity.this);
+            dbManager.addDataByString(title, content);
+            //会在Resume调用 重新更新数据 这里就不调用了
+//            getNotesListData();
+//            recyclerViewAdapter.notifyDataSetChanged();
+        } else {
+            Log.d("yzf", "取消保存回调数据");
+        }
+    }
+
+    /**
+     * 生命周期函数
+     * */
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getNotesListData();
+        setRecyclerView();
+        //防止创建按钮被覆盖 无法点击
+        findViewById(R.id.action_menu).bringToFront();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getNotesListData();
+        setRecyclerView();
+        findViewById(R.id.action_menu).bringToFront();
     }
 }

@@ -34,7 +34,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
-        holder.item_index.setText(Integer.toString(position));
+        holder.item_index.setText(Integer.toString(position + 1));
         holder.item_title.setText(noteList.get(position).getTitle());
         holder.item_content.setText(noteList.get(position).getContent());
         holder.item_time.setText(noteList.get(position).getDate().getDateString());
